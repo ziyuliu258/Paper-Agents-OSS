@@ -166,17 +166,18 @@ Web UI
 ### 初次设置（新开发者）
 
 ```bash
-# 1. 克隆私有仓库
+# 1. 克隆私有仓库（如果还没有的话）
 git clone git@github.com:ziyuliu258/Paper-Agents.git
 cd Paper-Agents
 
 # 2. 添加公开仓库 remote
 git remote add public git@github.com:ziyuliu258/Paper-Agents-OSS.git
 
-# 3. 创建本地 public 孤儿分支（与 master 无历史关联）
-git checkout --orphan public
-git add -A
-git commit -m "sync: initial"
+# 3. 拉取公开仓库的 main 分支，作为本地 public 分支
+git fetch public
+git checkout -b public public/main
+
+# 4. 切回 master 继续开发
 git checkout master
 ```
 
