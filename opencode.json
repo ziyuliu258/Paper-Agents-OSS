@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "watcher": {
+    "ignore": [
+      "**/.pytest_cache/**",
+      "**/.ruff_cache/**",
+      "**/__pycache__/**",
+
+      "**/.git/**",
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.next/**",
+      "**/coverage/**",
+      "**/.venv/**",
+      "**/venv/**",
+      "**/target/**",
+      "**/out/**",
+      "**/job/**"
+    ]
+  }
+}

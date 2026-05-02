@@ -1,0 +1,1 @@
+"""Paper selector module."""

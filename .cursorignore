@@ -1,0 +1,19 @@
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# 安全忽略 (最重要)
+.env
+**/.env
+*.env
+.env.*
+.venv
+venv/
+
+# Python 缓存
+__pycache__
+*.py[cod]
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 数据和其他文件夹
+.vscode

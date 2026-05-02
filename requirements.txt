@@ -1,0 +1,11 @@
+boto3
+beautifulsoup4
+fastapi
+httpx==0.28.1
+openai==2.24.0
+pymupdf==1.27.1
+python-multipart
+PyYAML
+python-dotenv==1.2.2
+uvicorn[standard]
+pytest

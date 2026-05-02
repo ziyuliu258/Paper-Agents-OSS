@@ -1,0 +1,41 @@
+topics:
+  - name: "时间序列预测"
+    query: "搜集与时间序列预测相关的论文，特别关注多变量时间序列和通道依赖方面的研究。"
+    keywords:
+      - "time series forecasting"
+      - "Multivariate time series"
+      - "Channel Independent"
+
+selection:
+  track: "classic"                   # auto | recent | classic | goat(recent+classic)
+  candidate_pool_size: 40
+  date_range_days: 1000
+  classic_min_citations: 30
+  semantic_top_k: 5
+  min_semantic_score: 0.4          # 语义相关度下限，低于此值的候选被丢弃
+  preferred_venues: 
+    - "ICLR"
+    - "AAAI"
+    - "IJCAI"
+    - "CVPR"
+    - "NeurIPS"
+    - "ICML"
+  preferred_institutions: []
+
+models:
+  fast: "gem_flash"
+  primary: "gem_pro"
+  secondary: "gpt_pro"
+  merge_model: "gem_pro"
+  reasoning_effort: "high"
+
+output:
+  results_dir: "results"
+  assets_dir: "results/assets"
+  filename_pattern: "{title_short}"
+
+storage:
+  local_dir: "data/local"
+  fetch_dir: "data/fetch"
+  cache_dir: "data/cache"
+  keep_cache: false
