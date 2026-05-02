@@ -146,3 +146,69 @@ Web UI
 - `specs/Web工作台与记忆系统-现行规格.md`
 - `specs/上下文与记忆.md`
 - `docs/update_log/*.md`
+
+## 公开仓库同步指南
+
+本项目同时维护一个私有开发仓库和一个公开开源仓库。由于私有仓库的 git 历史中包含敏感信息（API key 等），**绝对不能**将私有仓库的 commit 历史推送到公开仓库。
+
+### 仓库关系
+
+| Remote | 地址 | 用途 |
+|--------|------|------|
+| `origin` | `git@github.com:ziyuliu258/Paper-Agents.git` | 私有开发仓库，完整历史 |
+| `public` | `git@github.com:ziyuliu258/Paper-Agents-OSS.git` | 公开仓库，干净历史 |
+
+### 本地分支结构
+
+- `master`：日常开发分支，推送到 `origin`
+- `public`：孤儿分支（与 master 无祖先关系），专门用于向公开仓库推送
+
+### 初次设置（新开发者）
+
+```bash
+# 1. 克隆私有仓库
+git clone git@github.com:ziyuliu258/Paper-Agents.git
+cd Paper-Agents
+
+# 2. 添加公开仓库 remote
+git remote add public git@github.com:ziyuliu258/Paper-Agents-OSS.git
+
+# 3. 创建本地 public 孤儿分支（与 master 无历史关联）
+git checkout --orphan public
+git add -A
+git commit -m "sync: initial"
+git checkout master
+```
+
+### 日常同步到公开仓库
+
+当需要将最新代码同步到公开仓库时：
+
+```bash
+# 1. 确保 master 上的改动已经提交
+git checkout master
+git push origin master
+
+# 2. 切到 public 分支，用 master 的文件覆盖
+git checkout public
+git checkout master -- .
+
+# 3. 提交并推送
+git add -A && git commit -m "sync: 简要描述本次更新"
+git push public public:main
+
+# 4. 切回 master 继续开发
+git checkout master
+```
+
+### 严禁操作
+
+- **绝对不要** `git push public master:main`：这会把 master 的完整历史（含密钥）推到公开仓库
+- **绝对不要** `git push origin public`：这会把 public 分支推到私有仓库（虽然不危险，但会造成混乱）
+- **绝对不要** `git merge master` 在 public 分支上：这会把 master 历史合并进来
+
+### 原理
+
+`public` 分支是通过 `git checkout --orphan` 创建的，它没有任何父 commit，和 `master` 不存在祖先关系。因此即使 `public` 分支包含与 `master` 相同的文件内容，推送到公开仓库时也不会携带 `master` 的历史记录。
+
+每次同步时，`git checkout master -- .` 只是把 master 当前的**文件快照**复制到 public 分支的工作区，不涉及任何 commit 历史的引入。

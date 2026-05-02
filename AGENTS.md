@@ -2,6 +2,8 @@
 
 学术论文自动深度解读系统。给定论文 PDF 或 HTML 论文页，自动生成结构化中文 Markdown 解读，并通过 Web 工作台提供运行、报告、记忆、图谱和报告微调能力。当前为 **Web-only** 架构：FastAPI 后端 + React 前端。
 
+> **公开仓库同步**：本项目有对应的开源仓库 `Paper-Agents-OSS`。同步方式见 `CLAUDE.md` 末尾的「公开仓库同步指南」。核心规则：**绝对不要把 master 分支直接推到公开仓库**，必须通过本地 `public` 孤儿分支中转。
+
 ## 0. Karpathy 风格工作原则
 
 以下原则参考 `forrestchang/andrej-karpathy-skills`，并已经针对 Paper Agent 的仓库结构、运行语义和常见任务类型做了落地化。给 agent 的核心要求不是“写得多”，而是 **先想清楚、改得克制、围绕目标验证**。
